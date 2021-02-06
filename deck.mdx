@@ -1,4 +1,5 @@
-import { Head } from 'mdx-deck';
+import { Head, themes } from 'mdx-deck';
+export { default as theme } from './theme';
 
 <Head>
 	<title>React Performance</title>
@@ -7,6 +8,33 @@ import { Head } from 'mdx-deck';
 
 # React Performance
 
+Tips, tricks to improve the performance of your react app
+
+### Sibasish Mohanty
+
 ---
 
-## Heading 1
+## What this talk is
+
+- Something
+- Nothing
+- The last point
+
+---
+
+## What this talk is _not_
+
+- Some other thing
+- And this thing
+
+---
+
+## Let's get started
+
+import Highlighter from 'react-syntax-highlighter';
+
+<Highlighter language='jsx'>{`
+  export const hello = 'hi';
+  const foo = 'bar';
+  <h1 className="text-sm">Hello</h1>
+  `}</Highlighter>

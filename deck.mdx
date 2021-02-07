@@ -1,9 +1,16 @@
-import { Head, themes } from 'mdx-deck';
+import { Head, Appear, Image } from 'mdx-deck';
+import { FullScreenCode, Invert, Split } from 'mdx-deck/layouts';
 export { default as theme } from './theme';
 
 <Head>
 	<title>React Performance</title>
-	<meta></meta>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+	<meta name='keywords' content='React, Performance' />
+	<meta
+		name='description'
+		content='Slides for presentation on react performance.'
+	/>
+	<meta name='author' content='Sibasish Mohanty' />
 </Head>
 
 # React Performance
@@ -29,12 +36,63 @@ Tips, tricks to improve the performance of your react app
 
 ---
 
-## Let's get started
+### Let's get started
 
-import Highlighter from 'react-syntax-highlighter';
+<Image
+	src='https://media.giphy.com/media/HdcimOKferlkI/giphy.gif'
+	style={{ height: '500px', backgroundSize: 'contain' }}
+/>
 
-<Highlighter language='jsx'>{`
-  export const hello = 'hi';
-  const foo = 'bar';
-  <h1 className="text-sm">Hello</h1>
-  `}</Highlighter>
+---
+
+import { Highlighter } from './components/highlighter';
+
+<Highlighter>
+	{`
+    export const hello = 'hi';
+    const foo = 'bar';
+    <h1 className="text-sm">Hello My Name lorem ipsum</h1>
+  `}
+</Highlighter>
+
+---
+
+## Text appears when you activate next slide
+
+<ul>
+	<Appear>
+		<li>One</li>
+		<li>Two</li>
+		<li>Three</li>
+	</Appear>
+</ul>
+
+Go backwards to hide text again
+
+---
+
+export default Invert;
+
+# Inverted BG
+
+---
+
+export default Split;
+
+<Highlighter>
+	{`
+    const code = {
+      example: ['one', 'two'],
+    };
+    
+    <Button>Beep</Button>
+`}
+</Highlighter>
+
+## Split layout
+
+---
+
+export default FullScreenCode;
+
+<Highlighter>{`<Button>Beep</Button>`}</Highlighter>

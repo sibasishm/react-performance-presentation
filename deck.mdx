@@ -1,6 +1,5 @@
-import { Head, Appear, Image } from 'mdx-deck';
-import { FullScreenCode, Invert, Split } from 'mdx-deck/layouts';
-// export { default as theme } from './theme';
+import { Head, Image } from 'mdx-deck';
+import { FullScreenCode, Invert } from 'mdx-deck/layouts';
 
 <Head>
 	<title>React Performance</title>
@@ -36,25 +35,21 @@ Tips, tricks to improve the performance of your react app
 
 ---
 
-### Let's get started
+> Performance optimizations are not free. They ALWAYS come with a cost but do
+> NOT always come with a benefit to offset that cost.
+
+> [Kent C Dodds](https://kentcdodds.com/)
 
 ---
 
 ## The production build
 
-<ul>
-	<Appear>
-		<li>
-			By default, React includes many useful warnings for development. However,
-			they make React larger and slower.
-		</li>
-		<li>
-			Use the [production
-			version](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build)
-			when you deploy the app.
-		</li>
-	</Appear>
-</ul>
+- By default, React includes many useful warnings for development. However, they
+  make React larger and slower.
+
+- Use the
+  [production version](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build)
+  when you deploy the app.
 
 ---
 
@@ -70,8 +65,6 @@ Tips, tricks to improve the performance of your react app
 
 ---
 
-## Code splitting demo
-
 import { LazyLoad } from './components/lazy-load';
 
 <LazyLoad />
@@ -80,16 +73,54 @@ import { LazyLoad } from './components/lazy-load';
 
 ## Memoize expensive calculations
 
+- Bulky functions executed every single render leads to a performance bottleneck
+- Use `useMemo` hook to run a function when the results actually needs to be
+  re-evaluated
+- Don't overuse `useMemo` and `useCallback`
+
+---
+
+### Which one is better for performance?
+
+import { Highlighter } from './components/highlighter';
+
+<Highlighter>{`const removeUser = user => {
+  setUser(allUsers => allUsers.filter(u => u !== user))
+}
+`}</Highlighter>
+
+... And the one with `useCallback`
+
+<Highlighter>{`const removeUser = React.useCallback(user => {
+  setUser(allUsers => allUsers.filter(u => u !== user))
+}, [])
+`}</Highlighter>
+
+---
+
+### Every line of code which is executed comes with a cost
+
+<Highlighter>
+	{`const removeUser = user => {
+  setUser(allUsers => allUsers.filter(u => u !== user))
+}
+const removeUserCallback = React.useCallback(removeUser, []);
+`}
+</Highlighter>
+
+... And here is the original one
+
+<Highlighter>{`const removeUser = user => {
+  setUser(allUsers => allUsers.filter(u => u !== user))
+}
+`}</Highlighter>
+
 ---
 
 ## Avoid unndecessary re-renders
 
-<ul>
-	<Appear>
-		<li>Optimze slow renders before fixing [re-renders](https://a.com)</li>
-		<li>Immutability and reference equality</li>
-	</Appear>
-</ul>
+- Optimze slow renders before fixing re-renders
+- Immutability and reference equality
 
 ---
 
@@ -97,48 +128,4 @@ import { LazyLoad } from './components/lazy-load';
 
 ---
 
-## Performance death
-
----
-
 ## Bundling and minification
-
----
-
-import { Highlighter } from './components/highlighter';
-
-<Highlighter>
-	{`
-    export const hello = 'hi';
-    const foo = 'bar';
-    <h1 className="text-sm">Hello My Name lorem ipsum</h1>
-  `}
-</Highlighter>
-
----
-
-export default Invert;
-
-# Inverted BG
-
----
-
-export default Split;
-
-<Highlighter>
-	{`
-    const code = {
-      example: ['one', 'two'],
-    };
-    
-    <Button>Beep</Button>
-`}
-</Highlighter>
-
-## Split layout
-
----
-
-export default FullScreenCode;
-
-<Highlighter>{`<Button>Beep</Button>`}</Highlighter>

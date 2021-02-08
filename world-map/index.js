@@ -69,12 +69,8 @@ const WorldMap = () => {
 		feature(jsonData, jsonData.objects.countries).features
 	);
 
-	const handleCountryClick = countryIndex => {
-		console.log('Clicked on country: ', geographies[countryIndex]);
-	};
-
 	const handleMarkerClick = i => {
-		console.log('Marker: ', cities[i]);
+		window.alert(`Population of ${cities[i].name} is ${cities[i].population}`);
 	};
 
 	return (
@@ -88,7 +84,6 @@ const WorldMap = () => {
 						fill={`rgba(38,50,56,${(1 / geographies.length) * i})`}
 						stroke='#FFFFFF'
 						strokeWidth={0.5}
-						onClick={() => handleCountryClick(i)}
 					/>
 				))}
 			</g>

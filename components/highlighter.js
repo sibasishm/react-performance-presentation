@@ -4,7 +4,11 @@ import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 export function Highlighter({ children }) {
 	return (
-		<SyntaxHighlighter language='javascript' style={nightOwl}>
+		<SyntaxHighlighter
+			language='javascript'
+			style={nightOwl}
+			customStyle={{ textAlign: 'left' }}
+		>
 			{children}
 		</SyntaxHighlighter>
 	);

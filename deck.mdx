@@ -1,6 +1,6 @@
 import { Head, Appear, Image } from 'mdx-deck';
 import { FullScreenCode, Invert, Split } from 'mdx-deck/layouts';
-export { default as theme } from './theme';
+// export { default as theme } from './theme';
 
 <Head>
 	<title>React Performance</title>
@@ -38,10 +38,70 @@ Tips, tricks to improve the performance of your react app
 
 ### Let's get started
 
-<Image
-	src='https://media.giphy.com/media/HdcimOKferlkI/giphy.gif'
-	style={{ height: '500px', backgroundSize: 'contain' }}
-/>
+---
+
+## The production build
+
+<ul>
+	<Appear>
+		<li>
+			By default, React includes many useful warnings for development. However,
+			they make React larger and slower.
+		</li>
+		<li>
+			Use the [production
+			version](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build)
+			when you deploy the app.
+		</li>
+	</Appear>
+</ul>
+
+---
+
+## Code splitting
+
+- Loading less code will speed up your app
+- Dynamic imports in React with `<React.Suspense />` and `React.lazy()`
+- Eager loading for better UX
+- Prefetch dynamic imports using
+  [webpack magic comments](https://webpack.js.org/api/module-methods/#magic-comments)
+- Determine the need of code splitting with the
+  [coverage feature of the developer tools](https://developers.google.com/web/tools/chrome-devtools/coverage)
+
+---
+
+## Code splitting demo
+
+import { LazyLoad } from './components/lazy-load';
+
+<LazyLoad />
+
+---
+
+## Memoize expensive calculations
+
+---
+
+## Avoid unndecessary re-renders
+
+<ul>
+	<Appear>
+		<li>Optimze slow renders before fixing [re-renders](https://a.com)</li>
+		<li>Immutability and reference equality</li>
+	</Appear>
+</ul>
+
+---
+
+## Viewport based rendering
+
+---
+
+## Performance death
+
+---
+
+## Bundling and minification
 
 ---
 
@@ -54,20 +114,6 @@ import { Highlighter } from './components/highlighter';
     <h1 className="text-sm">Hello My Name lorem ipsum</h1>
   `}
 </Highlighter>
-
----
-
-## Text appears when you activate next slide
-
-<ul>
-	<Appear>
-		<li>One</li>
-		<li>Two</li>
-		<li>Three</li>
-	</Appear>
-</ul>
-
-Go backwards to hide text again
 
 ---
 

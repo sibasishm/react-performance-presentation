@@ -2,10 +2,24 @@ import * as React from 'react';
 import { getItems } from '../cities/filter-cities';
 import { Container, ListItem } from '../cities/styles';
 
+function CityCard({ visitCity, visited, id, title, subtitle }) {
+	const handleClick = () => {
+		visitCity(id);
+	};
+
+	return (
+		<ListItem active={visited} onClick={handleClick}>
+			<h3>{title}</h3>
+			<p>{subtitle}</p>
+		</ListItem>
+	);
+}
+
+CityCard = React.memo(CityCard);
+
 function App() {
 	const [inputValue, setInputValue] = React.useState('');
 	const [cities, setCities] = React.useState(getItems(inputValue));
-	console.log(cities);
 
 	const visitCity = React.useCallback(id => {
 		setCities(prevCities => {
@@ -28,14 +42,18 @@ function App() {
 			</div>
 			<Container>
 				{cities.map(({ city, state, visited, id }) => (
-					<ListItem key={id} onClick={() => visitCity(id)} active={visited}>
-						<ListItem.Title>{city}</ListItem.Title>
-						<ListItem.Subtitle>{state}</ListItem.Subtitle>
-					</ListItem>
+					<CityCard
+						key={id}
+						id={id}
+						visitCity={visitCity}
+						visited={visited}
+						title={city}
+						subtitle={state}
+					/>
 				))}
 			</Container>
 		</>
 	);
 }
 
-export default React.memo(App);
+export default App;

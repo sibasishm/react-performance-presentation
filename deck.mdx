@@ -53,6 +53,18 @@ Tips, tricks to improve the performance of your react app
 
 ---
 
+## Bundling and minification
+
+- Remove unnecessary modules and replace large modules with smaller alternatives
+- Analyze bundle size with
+  [webpack bundle analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer)
+- Serve minified bundle in production with
+  [compression webpack plugin](https://webpack.js.org/plugins/compression-webpack-plugin/)
+- Helped reducing canvas bundle size from 25.9 MB to 5.8 MB and impoved the time
+  to interactive by 75%
+
+---
+
 ## Code splitting
 
 - Loading less code will speed up your app
@@ -124,12 +136,6 @@ const removeUserCallback = React.useCallback(removeUser, []);
 
 ---
 
-### Too much talk... show me some code
-
 import Memoize from './components/memoize';
 
 <Memoize />
-
----
-
-## Bundling and minification

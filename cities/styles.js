@@ -18,18 +18,16 @@ export const ListItem = styled.li`
 
 	:hover {
 		cursor: pointer;
+		background-color: #dadada;
+	}
+
+	> h3 {
+		font-size: 1.5rem;
+		margin: 0.25em;
+	}
+
+	> p {
+		font-size: 1rem !important;
+		color: #0e0e0e;
 	}
 `;
-
-const Title = styled.h3`
-	font-size: 1.5rem;
-	margin: 0.25em;
-`;
-
-const Subtitle = styled.p`
-	font-size: 1rem !important;
-	color: #0e0e0e;
-`;
-
-ListItem.Title = Title;
-ListItem.Subtitle = Subtitle;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-const WorldMap = React.lazy(() => import('../world-map'));
+import WorldMap from '../world-map';
+// const WorldMap = React.lazy(() => import('../world-map'));
 
 export function LazyLoad() {
 	const [showMap, setShowMap] = React.useState(false);
@@ -23,9 +24,9 @@ export function LazyLoad() {
 				{' show world map'}
 			</label>
 			<div style={{ width: 1000, height: 500 }}>
-				<React.Suspense fallback={<p>Loading...</p>}>
-					{showMap ? <WorldMap /> : null}
-				</React.Suspense>
+				{/* <React.Suspense fallback={<p>Loading...</p>}> */}
+				{showMap ? <WorldMap /> : null}
+				{/* </React.Suspense> */}
 			</div>
 		</div>
 	);

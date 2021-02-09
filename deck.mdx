@@ -1,6 +1,5 @@
-import { Head, Appear, Image } from 'mdx-deck';
-import { FullScreenCode, Invert, Split } from 'mdx-deck/layouts';
-export { default as theme } from './theme';
+import { Head, Image } from 'mdx-deck';
+import { FullScreenCode, Invert } from 'mdx-deck/layouts';
 
 <Head>
 	<title>React Performance</title>
@@ -36,63 +35,107 @@ Tips, tricks to improve the performance of your react app
 
 ---
 
-### Let's get started
+> Performance optimizations are not free. They ALWAYS come with a cost but do
+> NOT always come with a benefit to offset that cost.
 
-<Image
-	src='https://media.giphy.com/media/HdcimOKferlkI/giphy.gif'
-	style={{ height: '500px', backgroundSize: 'contain' }}
-/>
+> [Kent C Dodds](https://kentcdodds.com/)
 
 ---
+
+## The production build
+
+- By default, React includes many useful warnings for development. However, they
+  make React larger and slower.
+
+- Use the
+  [production version](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build)
+  when you deploy the app.
+
+---
+
+## Bundling and minification
+
+- Remove unnecessary modules and replace large modules with smaller alternatives
+- Analyze bundle size with
+  [webpack bundle analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer)
+- Serve minified bundle in production with
+  [compression webpack plugin](https://webpack.js.org/plugins/compression-webpack-plugin/)
+- Helped reducing canvas bundle size from 25.9 MB to 5.8 MB and impoved the time
+  to interactive by 75%
+
+---
+
+## Code splitting
+
+- Loading less code will speed up your app
+- Dynamic imports in React with `<React.Suspense />` and `React.lazy()`
+- Eager loading for better UX
+- Prefetch dynamic imports using
+  [webpack magic comments](https://webpack.js.org/api/module-methods/#magic-comments)
+- Determine the need of code splitting with the
+  [coverage feature of the developer tools](https://developers.google.com/web/tools/chrome-devtools/coverage)
+
+---
+
+import { LazyLoad } from './components/lazy-load';
+
+<LazyLoad />
+
+---
+
+## Memoize expensive calculations
+
+- Bulky functions executed every single render leads to a performance bottleneck
+- Use `useMemo` hook to run a function when the results actually needs to be
+  re-evaluated
+- Don't overuse `useMemo` and `useCallback`
+
+---
+
+### Which one is better for performance?
 
 import { Highlighter } from './components/highlighter';
 
-<Highlighter>
-	{`
-    export const hello = 'hi';
-    const foo = 'bar';
-    <h1 className="text-sm">Hello My Name lorem ipsum</h1>
-  `}
-</Highlighter>
+<Highlighter>{`const removeUser = user => {
+  setUser(allUsers => allUsers.filter(u => u !== user))
+}
+`}</Highlighter>
+
+... And the one with `useCallback`
+
+<Highlighter>{`const removeUser = React.useCallback(user => {
+  setUser(allUsers => allUsers.filter(u => u !== user))
+}, [])
+`}</Highlighter>
 
 ---
 
-## Text appears when you activate next slide
-
-<ul>
-	<Appear>
-		<li>One</li>
-		<li>Two</li>
-		<li>Three</li>
-	</Appear>
-</ul>
-
-Go backwards to hide text again
-
----
-
-export default Invert;
-
-# Inverted BG
-
----
-
-export default Split;
+### Every line of code which is executed comes with a cost
 
 <Highlighter>
-	{`
-    const code = {
-      example: ['one', 'two'],
-    };
-    
-    <Button>Beep</Button>
+	{`const removeUser = user => {
+  setUser(allUsers => allUsers.filter(u => u !== user))
+}
+const removeUserCallback = React.useCallback(removeUser, []);
 `}
 </Highlighter>
 
-## Split layout
+... And here is the original one
+
+<Highlighter>{`const removeUser = user => {
+  setUser(allUsers => allUsers.filter(u => u !== user))
+}
+`}</Highlighter>
 
 ---
 
-export default FullScreenCode;
+## Avoid unndecessary re-renders
 
-<Highlighter>{`<Button>Beep</Button>`}</Highlighter>
+- Optimze slow renders before fixing re-renders
+- Immutability and reference equality
+
+---
+
+import Memoize from './components/memoize';
+
+<Memoize />

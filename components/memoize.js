@@ -28,7 +28,8 @@ function App() {
 	const visitPlace = React.useCallback(id => {
 		setPlaces(prevPlaces => {
 			let allPlaces = [...prevPlaces];
-			allPlaces[id].visited = !allPlaces[id].visited;
+			const index = allPlaces.findIndex(place => place.id === id);
+			allPlaces[index].visited = !allPlaces[index].visited;
 			return allPlaces;
 		});
 	}, []);

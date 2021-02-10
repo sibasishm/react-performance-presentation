@@ -46,7 +46,8 @@ import { Head, Image, Appear } from 'mdx-deck';
 <ul>
 	<Appear>
 		<li>You probably don't</li>
-		<li>You shoudn't optimize permaturely</li>
+		<li>Loadtime performance vs Runtime performance</li>
+		<li>You sholudn't optimize prematurely</li>
 		<li>Performance optimizations are not free</li>
 	</Appear>
 </ul>
@@ -140,6 +141,8 @@ const removeUserCallback = React.useCallback(removeUser, []);
 - Immutability and reference equality
 - A `PureComponent` is going to be _usually_ slower and _ocassionally_ faster
 - Optimze slow renders before fixing re-renders
+- Virtualize large list of data with
+  [react-virtualized](https://bvaughn.github.io/react-virtualized/#/wizard)
 
 ---
 

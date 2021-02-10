@@ -1,5 +1,4 @@
-import { Head, Image } from 'mdx-deck';
-import { FullScreenCode, Invert } from 'mdx-deck/layouts';
+import { Head, Image, Appear } from 'mdx-deck';
 
 <Head>
 	<title>React Performance</title>
@@ -14,31 +13,44 @@ import { FullScreenCode, Invert } from 'mdx-deck/layouts';
 
 # React Performance
 
-Tips, tricks to improve the performance of your react app
-
 ### Sibasish Mohanty
 
 ---
 
 ## What this talk is
 
-- Something
-- Nothing
-- The last point
+<ul>
+	<Appear>
+		<li>Understand when (not) to go for performance optimization</li>
+		<li>Monitor the performance and identify the cause</li>
+		<li>Get familiar with right tools and techniques</li>
+	</Appear>
+</ul>
 
 ---
 
 ## What this talk is _not_
 
-- Some other thing
-- And this thing
+<ul>
+	<Appear>
+		<li>More focus on runtime performance than loadtime performance</li>
+		<li>SSR, CDN, Web Workers, Throttling and Debouncing</li>
+		<li>How a particular tool works</li>
+	</Appear>
+</ul>
 
 ---
 
-> Performance optimizations are not free. They ALWAYS come with a cost but do
-> NOT always come with a benefit to offset that cost.
+### How do you if you have a performance problem?
 
-> [Kent C Dodds](https://kentcdodds.com/)
+<ul>
+	<Appear>
+		<li>You probably don't</li>
+		<li>Loadtime performance vs Runtime performance</li>
+		<li>You sholudn't optimize prematurely</li>
+		<li>Performance optimizations are not free</li>
+	</Appear>
+</ul>
 
 ---
 
@@ -68,12 +80,8 @@ Tips, tricks to improve the performance of your react app
 ## Code splitting
 
 - Loading less code will speed up your app
-- Dynamic imports in React with `<React.Suspense />` and `React.lazy()`
-- Eager loading for better UX
-- Prefetch dynamic imports using
-  [webpack magic comments](https://webpack.js.org/api/module-methods/#magic-comments)
-- Determine the need of code splitting with the
-  [coverage feature of the developer tools](https://developers.google.com/web/tools/chrome-devtools/coverage)
+- Dynamic imports with `<React.Suspense />` and `React.lazy()`
+- Eager loading and prefetching dynamic imports for better UX
 
 ---
 
@@ -85,9 +93,8 @@ import { LazyLoad } from './components/lazy-load';
 
 ## Memoize expensive calculations
 
-- Bulky functions executed every single render leads to a performance bottleneck
-- Use `useMemo` hook to run a function when the results actually needs to be
-  re-evaluated
+- Bulky functions executed in every single render cycle
+- Memoized functions run when the results actually needs to be re-evaluated
 - Don't overuse `useMemo` and `useCallback`
 
 ---
@@ -131,11 +138,47 @@ const removeUserCallback = React.useCallback(removeUser, []);
 
 ## Avoid unndecessary re-renders
 
-- Optimze slow renders before fixing re-renders
 - Immutability and reference equality
+- A `PureComponent` is going to be _usually_ slower and _ocassionally_ faster
+- Optimze slow renders before fixing re-renders
+- Virtualize large list of data with
+  [react-virtualized](https://bvaughn.github.io/react-virtualized/#/wizard)
 
 ---
 
 import Memoize from './components/memoize';
 
 <Memoize />
+
+---
+
+### Cost vs Benefit
+
+<ol>
+	<Appear>
+		<li>Bundling and minification</li>
+		<li>Code splitting</li>
+		<li>Memoize expensive calculations</li>
+		<li>Virtualize long lists</li>
+		<li>Avoid unnecessay re-renders</li>
+	</Appear>
+</ol>
+
+---
+
+## Conclusion
+
+<ul>
+	<Appear>
+		<li>Write your code naturally, code to the design</li>
+		<li>Performance optimizations may not offset the cost it comes with</li>
+		<li>
+			If you aren’t measuring, you can’t even know if your optimizations are
+			better
+		</li>
+	</Appear>
+</ul>
+
+---
+
+# Thank you

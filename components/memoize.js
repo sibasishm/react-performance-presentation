@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { getItems } from '../cities/filter-cities';
-import { Container, ListItem } from '../cities/styles';
+import { getItems } from '../places/utils';
+import { Container, ListItem, Input } from '../places/styles';
 
-function CityCard({ visitCity, visited, id, title, subtitle }) {
+function Card({ visitPlace, visited, id, title, subtitle, code }) {
 	const handleClick = () => {
-		visitCity(id);
+		visitPlace(id);
 	};
 
 	return (
@@ -15,40 +15,43 @@ function CityCard({ visitCity, visited, id, title, subtitle }) {
 	);
 }
 
-CityCard = React.memo(CityCard);
+Card = React.memo(Card);
 
 function App() {
 	const [inputValue, setInputValue] = React.useState('');
-	const [cities, setCities] = React.useState(getItems(inputValue));
+	const [places, setPlaces] = React.useState(getItems(inputValue));
 
-	const visitCity = React.useCallback(id => {
-		setCities(prevCities => {
-			let allCities = [...prevCities];
-			allCities[id].visited = !allCities[id].visited;
-			return allCities;
+	React.useEffect(() => {
+		setPlaces(getItems(inputValue));
+	}, [inputValue]);
+
+	const visitPlace = React.useCallback(id => {
+		setPlaces(prevPlaces => {
+			let allPlaces = [...prevPlaces];
+			const index = allPlaces.findIndex(place => place.id === id);
+			allPlaces[index].visited = !allPlaces[index].visited;
+			return allPlaces;
 		});
 	}, []);
 
 	return (
 		<>
-			<div>
-				<label htmlFor='city'>Find a city</label>
-				<input
-					type='text'
-					id='city'
-					value={inputValue}
-					onChange={e => setInputValue(e.target.value)}
-				/>
-			</div>
+			<h3>Find your next stop...</h3>
+			<Input
+				type='text'
+				placeholder='Enter a state name'
+				value={inputValue}
+				onChange={e => setInputValue(e.target.value)}
+			/>
 			<Container>
-				{cities.map(({ city, state, visited, id }) => (
-					<CityCard
+				{places.map(({ state, country, visited, id }) => (
+					<Card
 						key={id}
 						id={id}
-						visitCity={visitCity}
+						visitPlace={visitPlace}
 						visited={visited}
-						title={city}
-						subtitle={state}
+						title={state}
+						subtitle={country}
 					/>
 				))}
 			</Container>

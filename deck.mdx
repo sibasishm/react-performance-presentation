@@ -9,11 +9,12 @@ import { Head, Image, Appear } from 'mdx-deck';
 		content='Slides for presentation on react performance.'
 	/>
 	<meta name='author' content='Sibasish Mohanty' />
+	<link rel='stylesheet' href='./styles.css' />
 </Head>
 
-# React Performance
+## Performance Optimization with React
 
-### Sibasish Mohanty
+#### Sibasish Mohanty
 
 ---
 
@@ -33,35 +34,50 @@ import { Head, Image, Appear } from 'mdx-deck';
 
 <ul>
 	<Appear>
-		<li>More focus on runtime performance than loadtime performance</li>
-		<li>SSR, CDN, Web Workers, Throttling and Debouncing</li>
+		<li>Load-time performance vs Runtime performance</li>
+		<li>SSR, CDN, Web Workers, Caching, Throttling and Debouncing</li>
 		<li>How a particular tool works</li>
 	</Appear>
 </ul>
 
 ---
 
-### How do you if you have a performance problem?
+### How do we know if we have a performance problem?
 
 <ul>
 	<Appear>
-		<li>You probably don't</li>
-		<li>Loadtime performance vs Runtime performance</li>
-		<li>You sholudn't optimize prematurely</li>
-		<li>Performance optimizations are not free</li>
+		<li>(A part of) the website takes forever to load</li>
+		<li>Navigating to different section seems sluggish</li>
+		<li>It takes more than one click to submit a form</li>
+		<li>DOM operations are not instantaneous</li>
+		<li>... And many other reasons that creates a bad UX</li>
 	</Appear>
 </ul>
 
 ---
 
-## The production build
+### How do we approach optimizing the performance?
 
-- By default, React includes many useful warnings for development. However, they
-  make React larger and slower.
+<ul>
+	<Appear>
+		<li>Get familiar with the problem you are solving</li>
+		<li>Identify the right tool for the task</li>
+		<li>Profile before optimizing</li>
+		<li>Know the cost of the optimization</li>
+		<li>Quantify the improved performance</li>
+	</Appear>
+</ul>
+
+---
+
+## Build for production
 
 - Use the
   [production version](https://reactjs.org/docs/optimizing-performance.html#use-the-production-build)
   when you deploy the app.
+
+- Add performance monitoring with `<React.Profiler />` to keep track of
+  performance regressions
 
 ---
 
@@ -85,7 +101,7 @@ import { Head, Image, Appear } from 'mdx-deck';
 
 ---
 
-import { LazyLoad } from './components/lazy-load';
+import LazyLoad from './components/lazy-load';
 
 <LazyLoad />
 

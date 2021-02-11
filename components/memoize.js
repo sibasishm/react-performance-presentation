@@ -1,60 +1,84 @@
 import * as React from 'react';
+import { useVirtual } from 'react-virtual';
 import { getItems } from '../places/utils';
-import { Container, ListItem, Input } from '../places/styles';
 
-function Card({ visitPlace, visited, id, title, subtitle, code }) {
-	const handleClick = () => {
+function Card({ visitPlace, visited, state, country, id, style, size, start }) {
+	function handleClick() {
 		visitPlace(id);
-	};
-
+	}
 	return (
-		<ListItem active={visited} onClick={handleClick}>
-			<h3>{title}</h3>
-			<p>{subtitle}</p>
-		</ListItem>
+		<li
+			className={`card ${
+				visited
+					? 'card-active'
+					: id % 2 === 0
+					? 'card-inactive-even'
+					: 'card-inactive-odd'
+			}`}
+			onClick={handleClick}
+			style={{
+				height: `${size}px`,
+				transform: `translateY(${start}px)`,
+			}}
+		>
+			<h3>{state}</h3>
+			<p>{country}</p>
+		</li>
 	);
 }
 
 Card = React.memo(Card);
 
 function App() {
+	const parentRef = React.useRef();
 	const [inputValue, setInputValue] = React.useState('');
-	const [places, setPlaces] = React.useState(getItems(inputValue));
+
+	const allPlaces = React.useMemo(() => getItems(inputValue), [inputValue]);
+	const [places, setPlaces] = React.useState(allPlaces);
 
 	React.useEffect(() => {
-		setPlaces(getItems(inputValue));
-	}, [inputValue]);
+		setPlaces(allPlaces);
+	}, [allPlaces]);
 
 	const visitPlace = React.useCallback(id => {
 		setPlaces(prevPlaces => {
-			let allPlaces = [...prevPlaces];
-			const index = allPlaces.findIndex(place => place.id === id);
-			allPlaces[index].visited = !allPlaces[index].visited;
-			return allPlaces;
+			let newPlaces = [...prevPlaces];
+			const index = newPlaces.findIndex(place => place.id === id);
+			newPlaces[index].visited = !newPlaces[index].visited;
+			return newPlaces;
 		});
 	}, []);
+
+	const { totalSize, virtualItems } = useVirtual({
+		size: places.length,
+		parentRef,
+		estimateSize: React.useCallback(() => 120, []),
+		overscan: 5,
+	});
 
 	return (
 		<>
 			<h3>Find your next stop...</h3>
-			<Input
+			<input
+				className='input-box'
 				type='text'
-				placeholder='Enter a state name'
+				placeholder='Enter a state or country name'
 				value={inputValue}
 				onChange={e => setInputValue(e.target.value)}
 			/>
-			<Container>
-				{places.map(({ state, country, visited, id }) => (
-					<Card
-						key={id}
-						id={id}
-						visitPlace={visitPlace}
-						visited={visited}
-						title={state}
-						subtitle={country}
-					/>
-				))}
-			</Container>
+			<div className='container' ref={parentRef}>
+				<ul
+					className='menu'
+					style={{
+						height: `${totalSize}px`,
+					}}
+				>
+					{virtualItems.map(({ index, start, size }) => {
+						const props = { ...places[index], visitPlace, size, start };
+						return <Card key={places[index].id} {...props} />;
+					})}
+				</ul>
+			</div>
 		</>
 	);
 }

@@ -3,7 +3,7 @@ import * as React from 'react';
 import WorldMap from '../world-map';
 // const WorldMap = React.lazy(() => import('../world-map'));
 
-export function LazyLoad() {
+function App() {
 	const [showMap, setShowMap] = React.useState(false);
 	return (
 		<div
@@ -31,3 +31,5 @@ export function LazyLoad() {
 		</div>
 	);
 }
+
+export default App;

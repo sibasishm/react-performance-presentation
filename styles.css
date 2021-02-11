@@ -1,0 +1,70 @@
+.container {
+	margin-top: 1rem;
+	width: 400px;
+	height: 600px;
+	overflow-y: scroll;
+}
+
+.menu {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	width: 100%;
+	position: relative;
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.card > h3 {
+	font-size: 1.5rem;
+	margin: 0.25em;
+}
+
+.card > p {
+	font-size: 1rem !important;
+	color: #0e0e0e;
+}
+
+.card:hover {
+	cursor: pointer;
+}
+
+.card-active {
+	background-color: #90fea8;
+}
+
+.card-active:hover {
+	background-color: #90efa8;
+}
+
+.card-inactive-odd {
+	background-color: #eaeaea;
+}
+
+.card-inactive-even {
+	background-color: #f9f9f9;
+}
+
+.card-inactive-odd:hover,
+.card-inactive-even:hover {
+	background-color: #aaaaaa;
+}
+
+.input-box {
+	font-size: 1.5rem;
+	padding: 0.5rem;
+	width: 400px;
+	color: #0e0e0e;
+	border: 2px solid #6a6a6a;
+	border-radius: 8px;
+}

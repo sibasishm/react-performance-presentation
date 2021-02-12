@@ -65,8 +65,9 @@ const projection = geoEqualEarth()
 	.translate([800 / 2, 450 / 2]);
 
 const WorldMap = () => {
-	const [geographies, setGeographies] = React.useState(
-		feature(jsonData, jsonData.objects.countries).features
+	const geographies = React.useMemo(
+		() => feature(jsonData, jsonData.objects.countries).features,
+		[]
 	);
 
 	const handleMarkerClick = i => {

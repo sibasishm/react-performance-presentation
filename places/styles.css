@@ -23,6 +23,7 @@
 	top: 0;
 	left: 0;
 	width: 100%;
+	color: #0e0e0e;
 }
 
 .card > h3 {
@@ -31,8 +32,8 @@
 }
 
 .card > p {
-	font-size: 1rem !important;
-	color: #0e0e0e;
+	font-size: 1rem;
+	margin: 0;
 }
 
 .card:hover {

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { useVirtual } from 'react-virtual';
 import { getItems } from '../places/utils';
 
+import '../places/styles.css';
+
 function Card({ visitPlace, visited, state, country, id, style, size, start }) {
 	function handleClick() {
 		visitPlace(id);
@@ -52,7 +54,7 @@ function App() {
 	const { totalSize, virtualItems } = useVirtual({
 		size: places.length,
 		parentRef,
-		estimateSize: React.useCallback(() => 120, []),
+		estimateSize: React.useCallback(() => 100, []),
 		overscan: 5,
 	});
 
